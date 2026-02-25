@@ -125,9 +125,9 @@ function TestCard({ tag, quote, name, company, initials }: { tag: string; quote:
     <div
       ref={cardRef}
       onMouseMove={handleMouseMove}
-      className="torch-card card-lift"
+      className="testimonial-card torch-card card-lift"
       style={{
-        padding: "36px 32px", flexShrink: 0, width: 360,
+        padding: "36px 32px", flexShrink: 0,
         position: "relative", borderRadius: 12,
       }}
     >
@@ -328,11 +328,11 @@ export default function Home() {
         }
         .hero-sup {
           font-size: 0.72rem; letter-spacing: 0.24em; text-transform: uppercase;
-          color: var(--accent); margin-bottom: 20px; font-weight: 500;
+          color: var(--accent); margin-bottom: 12px; font-weight: 500;
         }
         .hero-sub {
           font-size: 1.05rem; color: var(--text-2); max-width: 520px;
-          margin: 0 auto 52px; line-height: 1.8; text-align: center; font-weight: 400;
+          margin: 0 auto 40px; line-height: 1.8; text-align: center; font-weight: 400;
         }
 
         /* ── STATS ── */
@@ -499,16 +499,16 @@ export default function Home() {
           .stat-item:nth-child(3), .stat-item:nth-child(4) { border-bottom: none; }
           .process-grid { grid-template-columns: 1fr !important; }
           .services-grid { grid-template-columns: 1fr !important; }
-          .footer-grid { grid-template-columns: 1fr 1fr !important; }
-          .process-card { padding: 36px 28px !important; }
-          .hero-title { font-size: clamp(2rem, 9vw, 3.4rem) !important; }
+          .footer-grid { grid-template-columns: 1fr !important; }
+          .process-card { padding: 40px 24px !important; }
+          .hero-title { font-size: clamp(2rem, 9vw, 3.2rem) !important; margin-bottom: 24px !important; }
+          .hero-sub { margin-bottom: 40px !important; }
+          .hero-cta-group { margin-top: 40px !important; }
         }
         @media (min-width: 769px) and (max-width: 1024px) {
           .stats-grid { grid-template-columns: repeat(2, 1fr); }
-          .stat-item:nth-child(2) { border-right: none; }
-          .stat-item:nth-child(1), .stat-item:nth-child(2) { border-bottom: 1px solid var(--border); }
+          .footer-grid { grid-template-columns: repeat(2, 1fr) !important; }
           .services-grid { grid-template-columns: repeat(2, 1fr) !important; }
-          .footer-grid { grid-template-columns: 1fr 1fr !important; }
           .process-grid { grid-template-columns: 1fr !important; }
           .process-card { padding: 44px 36px !important; }
         }
@@ -578,53 +578,49 @@ export default function Home() {
           background: "linear-gradient(90deg, transparent, var(--accent), transparent)", opacity: 0.1,
         }} />
 
-        {/* Available badge */}
-        <div style={{
-          display: "inline-flex", alignItems: "center", gap: 8,
-          border: "1px solid var(--border-md)", padding: "8px 18px",
-          fontSize: "0.72rem", letterSpacing: "0.14em", textTransform: "uppercase",
-          color: "var(--text-2)", marginBottom: 44, background: "var(--bg-surface)",
-          borderRadius: 100, fontWeight: 500,
-        }}>
-          <span style={{ width: 7, height: 7, background: "#4ade80", borderRadius: "50%", animation: "pulse-green 2s infinite", flexShrink: 0 }} />
-          Available for new clients
-        </div>
+        <div style={{ position: "relative", zIndex: 10, display: "flex", flexDirection: "column", alignItems: "center" }}>
+          {/* Available badge */}
+          <div className="available-badge">
+            <span style={{ width: 7, height: 7, background: "#4ade80", borderRadius: "50%", animation: "pulse-green 2s infinite", flexShrink: 0 }} />
+            Available for new clients
+          </div>
 
-        <p className="hero-sup">Meta Advertising · Content Strategy · Lead Generation</p>
+          <p className="hero-sup">Meta Advertising · Content Strategy · Lead Generation</p>
 
-        <h1 className="hero-title">
-          We Build Revenue Engines
-          <br />For Service Businesses
-        </h1>
+          <h1 className="hero-title">
+            We Build Revenue Engines
+            <br />For Service Businesses
+          </h1>
 
-        <p className="hero-sub">
-          Strategic content, high-performance video editing, and data-driven
-          advertising systems that turn attention into predictable revenue.
-        </p>
+          <p className="hero-sub">
+            Strategic content, high-performance video editing, and data-driven
+            advertising systems that turn attention into predictable revenue.
+          </p>
 
-        <div className="hero-cta-group">
-          <a href="https://cal.com/niteshbandekar/15min" className="cta-hero">
-            Book a Call
-            <div className="cta-hero-arrow">
-              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M7 17L17 7M17 7H7M17 7V17" /></svg>
-            </div>
-          </a>
+          <div className="hero-cta-group">
+            <a href="https://cal.com/niteshbandekar/15min" className="cta-hero">
+              Book a Call
+              <div className="cta-hero-arrow">
+                <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M7 17L17 7M17 7H7M17 7V17" /></svg>
+              </div>
+            </a>
 
-          <div className="trust-panel">
-            <div className="avatar-stack">
-              {['A', 'C', 'K', 'S', 'B'].map((initial, i) => (
-                <div key={i} className="stack-avatar" style={{ backgroundColor: i % 2 === 0 ? "var(--bg-surface2)" : "var(--accent-bg)" }}>
-                  {initial}
-                </div>
-              ))}
-            </div>
-            <div className="trust-info">
-              <div className="stars">
-                {[...Array(5)].map((_, i) => (
-                  <svg key={i} width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
+            <div className="trust-panel">
+              <div className="avatar-stack">
+                {['A', 'C', 'K', 'S', 'B'].map((initial, i) => (
+                  <div key={i} className="stack-avatar" style={{ backgroundColor: i % 2 === 0 ? "var(--bg-surface2)" : "var(--accent-bg)" }}>
+                    {initial}
+                  </div>
                 ))}
               </div>
-              <span className="trust-text">Trusted by 40+ Clients</span>
+              <div className="trust-info">
+                <div className="stars">
+                  {[...Array(5)].map((_, i) => (
+                    <svg key={i} width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
+                  ))}
+                </div>
+                <span className="trust-text">Trusted by 40+ Clients</span>
+              </div>
             </div>
           </div>
         </div>
