@@ -260,6 +260,18 @@ export default function Home() {
 
   const marqueeItems = ["Meta Advertising", "Content Strategy", "Lead Generation", "Video Editing", "Marketing Automation", "Revenue Growth", "Service Businesses", "Campaign Analytics"];
 
+  const pricingPlans = [
+    { title: "Foundations", price: "$2.5k", features: ["Content Strategy", "Video Production", "Organic Growth", "1 Acquisition Channel"], popular: false },
+    { title: "Accelerator", price: "$5.0k", features: ["Meta Ads Management", "Lead Gen Funnels", "Authority Content", "2 Acquisition Channels"], popular: true },
+    { title: "Scale", price: "Custom", features: ["CRM Automation", "Revenue Systems", "Proprietary Tracking", "Multi-Channel Scale"], popular: false }
+  ];
+
+  const benefits = [
+    { title: "Predictable Growth", body: "No more guessing where your next lead is coming from. We build systems that deliver customers consistently." },
+    { title: "Done-For-You", body: "We handle the scripting, editing, filming plan, and ad management. You focus on closing the jobs." },
+    { title: "Direct ROI", body: "We don't track vanity metrics. We track appointments, booked calls, and revenue generated for your business." }
+  ];
+
   return (
     <>
       <style>{`
@@ -310,9 +322,9 @@ export default function Home() {
         /* ── HERO ── */
         .hero-title {
           font-family: var(--font);
-          font-size: clamp(2.8rem, 6.5vw, 5.8rem);
-          font-weight: 700; line-height: 1.04; letter-spacing: -0.03em;
-          color: var(--text); text-align: center; max-width: 980px; margin: 0 auto 32px;
+          font-size: clamp(2.6rem, 6vw, 4.8rem);
+          font-weight: 500; line-height: 1.1; letter-spacing: -0.01em;
+          color: var(--text); text-align: center; max-width: 1150px; margin: 0 auto 32px;
         }
         .hero-sup {
           font-size: 0.72rem; letter-spacing: 0.24em; text-transform: uppercase;
@@ -335,7 +347,7 @@ export default function Home() {
         .stat-number {
           font-family: var(--font);
           font-size: clamp(2.2rem, 4.5vw, 3.6rem);
-          font-weight: 700; color: var(--text); line-height: 1;
+          font-weight: 500; color: var(--text); line-height: 1;
           margin-bottom: 10px; letter-spacing: -0.03em;
         }
         .stat-label {
@@ -360,13 +372,13 @@ export default function Home() {
         .process-card:hover { background: var(--accent-bg); }
         .process-card:hover::before { transform: scaleX(1); }
         .proc-num {
-          font-family: var(--font); font-size: 4.5rem; font-weight: 700;
+          font-family: var(--font); font-size: 4.5rem; font-weight: 500;
           color: var(--border-md); line-height: 1; margin-bottom: 28px;
           letter-spacing: -0.04em; transition: color 0.4s;
         }
         .process-card:hover .proc-num { color: rgba(81, 116, 166, 0.2); }
         .proc-title {
-          font-family: var(--font); font-size: 1.15rem; font-weight: 600;
+          font-family: var(--font); font-size: 1.15rem; font-weight: 500;
           margin-bottom: 14px; color: var(--text); letter-spacing: -0.01em;
         }
         .proc-body { font-size: 0.92rem; color: var(--text-2); line-height: 1.8; max-width: 340px; }
@@ -446,7 +458,7 @@ export default function Home() {
         .cta-big {
           font-family: var(--font);
           font-size: clamp(2.4rem, 5.5vw, 5rem);
-          font-weight: 700; line-height: 1.04; letter-spacing: -0.03em;
+          font-weight: 500; line-height: 1.04; letter-spacing: -0.03em;
           max-width: 780px; margin: 0 auto 24px; text-align: center;
         }
 
@@ -509,42 +521,34 @@ export default function Home() {
       {/* ══ MOBILE MENU ══ */}
       <div className={`mob-menu${mobileMenuOpen ? " open" : ""}`} role="dialog" aria-modal="true">
         <button className="mob-close" onClick={() => setMobileMenuOpen(false)} aria-label="Close menu">✕</button>
-        {["Process", "Services", "Results", "FAQ"].map((item) => (
+        {["Process", "Benefits", "Projects", "Pricing"].map((item) => (
           <a key={item} href={`#${item.toLowerCase()}`} onClick={() => setMobileMenuOpen(false)}>{item}</a>
         ))}
-        <CtaButton href="https://cal.com/niteshbandekar/15min" onClick={() => setMobileMenuOpen(false)} style={{ marginTop: 12 }}>
+        <CtaButton href="https://cal.com/niteshbandekar/15min" onClick={() => setMobileMenuOpen(false)} style={{ marginTop: 24 }}>
           Book a Call
         </CtaButton>
       </div>
 
-      {/* ══ NAV ══ */}
-      <nav style={{
-        position: "fixed", top: 0, left: 0, right: 0, zIndex: 100, height: 70,
-        background: scrolled ? "rgba(255,255,255,0.97)" : "rgba(255,255,255,0.85)",
-        backdropFilter: "blur(16px)",
-        borderBottom: scrolled ? "1px solid var(--border)" : "1px solid transparent",
-        transition: "background 0.4s, border-color 0.4s",
-      }}>
-        <div className="nav-inner" style={{ height: "100%" }}>
-          <a href="#" style={{
-            fontFamily: "var(--font)", fontSize: "1.2rem", fontWeight: 700,
-            color: "var(--text)", textDecoration: "none", letterSpacing: "-0.025em",
-          }}>
-            NEXOL <span style={{ color: "var(--accent-red)" }}>MEDIA</span>
-          </a>
-          <ul className="nav-links hide-mob">
-            {["Process", "Services", "Results", "FAQ"].map((item) => (
-              <li key={item}><a href={`#${item.toLowerCase()}`} className="nav-link">{item}</a></li>
-            ))}
-          </ul>
-          <div className="nav-cta-wrap hide-mob">
-            <CtaButton href="https://cal.com/niteshbandekar/15min" style={{ padding: "8px 20px", fontSize: "0.75rem", gap: "10px" }}>
-              Book a Call
-            </CtaButton>
+      {/* ══ PLAN BAR (PRIMARY HEADER) ══ */}
+      <div className="plan-bar">
+        <div style={{ display: "flex", alignItems: "center", gap: 10 }}>
+          <div style={{ width: 24, height: 24, background: "var(--bg-dark)", borderRadius: 5, display: "flex", alignItems: "center", justifyContent: "center" }}>
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="4"><path d="M5 19L19 5M5 5L19 19" /></svg>
           </div>
-          <button className="ham-btn show-mob" onClick={() => setMobileMenuOpen(true)} aria-label="Open menu">☰</button>
+          <span style={{ fontSize: "0.95rem", fontWeight: 700 }}>Nexol Media</span>
         </div>
-      </nav>
+        <div className="plan-bar-links hide-mob">
+          {["Process", "Benefits", "Projects", "Pricing"].map(l => (
+            <a key={l} href={`#${l.toLowerCase()}`} className="plan-bar-link">{l}</a>
+          ))}
+        </div>
+        <a href="#pricing" className="plan-bar-cta">
+          Choose your plan
+          <div className="plan-bar-circle">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M5 12h14m-7-7l7 7-7 7" /></svg>
+          </div>
+        </a>
+      </div>
 
       {/* ══ HERO ══ */}
       <section style={{
@@ -571,7 +575,7 @@ export default function Home() {
         }} />
         <div style={{
           position: "absolute", bottom: 0, left: 0, right: 0, height: 1,
-          background: "linear-gradient(90deg, transparent, var(--accent), transparent)", opacity: 0.3,
+          background: "linear-gradient(90deg, transparent, var(--accent), transparent)", opacity: 0.1,
         }} />
 
         {/* Available badge */}
@@ -586,25 +590,11 @@ export default function Home() {
           Available for new clients
         </div>
 
-        <p className="hero-sup">Meta Ads · Content · Automation</p>
+        <p className="hero-sup">Meta Advertising · Content Strategy · Lead Generation</p>
 
         <h1 className="hero-title">
-          We Build{" "}
-          <span style={{
-            background: "linear-gradient(90deg, var(--accent) 0%, var(--accent-red) 100%)",
-            WebkitBackgroundClip: "text",
-            WebkitTextFillColor: "transparent",
-            position: "relative",
-            display: "inline-block",
-            fontWeight: 800
-          }}>
-            Revenue Engines
-            <svg style={{ position: "absolute", bottom: -8, left: 0, width: "100%", height: 8, overflow: "visible" }}
-              viewBox="0 0 100 8" preserveAspectRatio="none" aria-hidden="true">
-              <path d="M0,4 Q25,0 50,4 T100,4" fill="none" stroke="var(--accent-red)" strokeWidth="3" opacity="0.15" />
-            </svg>
-          </span>
-          <br />for Service Businesses
+          We Build Revenue Engines
+          <br />For Service Businesses
         </h1>
 
         <p className="hero-sub">
@@ -612,13 +602,31 @@ export default function Home() {
           advertising systems that turn attention into predictable revenue.
         </p>
 
-        <div style={{ display: "flex", gap: 14, justifyContent: "center", flexWrap: "wrap" }}>
-          <CtaButton href="https://cal.com/niteshbandekar/15min">
-            Book a Free Strategy Call
-          </CtaButton>
-          <a href="#process" className="pill-btn-outline" style={{ fontSize: "0.88rem", padding: "15px 36px" }}>
-            See How It Works
+        <div className="hero-cta-group">
+          <a href="https://cal.com/niteshbandekar/15min" className="cta-hero">
+            Book a Call
+            <div className="cta-hero-arrow">
+              <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="3"><path d="M7 17L17 7M17 7H7M17 7V17" /></svg>
+            </div>
           </a>
+
+          <div className="trust-panel">
+            <div className="avatar-stack">
+              {['A', 'C', 'K', 'S', 'B'].map((initial, i) => (
+                <div key={i} className="stack-avatar" style={{ backgroundColor: i % 2 === 0 ? "var(--bg-surface2)" : "var(--accent-bg)" }}>
+                  {initial}
+                </div>
+              ))}
+            </div>
+            <div className="trust-info">
+              <div className="stars">
+                {[...Array(5)].map((_, i) => (
+                  <svg key={i} width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M12 2l3.09 6.26L22 9.27l-5 4.87 1.18 6.88L12 17.77l-6.18 3.25L7 14.14 2 9.27l6.91-1.01L12 2z" /></svg>
+                ))}
+              </div>
+              <span className="trust-text">Trusted by 40+ Clients</span>
+            </div>
+          </div>
         </div>
 
         {/* Scroll indicator */}
@@ -677,7 +685,7 @@ export default function Home() {
           <BlockReveal>
             <h2 style={{
               fontFamily: "'Instrument Sans', sans-serif", fontSize: "clamp(2.2rem, 4.5vw, 3.8rem)",
-              fontWeight: 700, lineHeight: 1.08, letterSpacing: "-0.03em",
+              fontWeight: 500, lineHeight: 1.08, letterSpacing: "-0.03em",
               maxWidth: 680, marginBottom: 72, color: "var(--text)",
             }}>
               A system built to{" "}
@@ -698,18 +706,39 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══ SERVICES ══ */}
-      <section id="services" style={{ padding: "120px 5%" }}>
+      {/* ══ BENEFITS (WHY US) ══ */}
+      <section id="benefits" style={{ padding: "120px 5%", background: "var(--bg)" }}>
         <div className="page-wrap" style={{ padding: 0 }}>
           <div className="section-label">
             <span className="section-label-num">02</span>
+            <span className="section-label-text">Benefits</span>
+            <div className="section-label-line" />
+          </div>
+          <div style={{ display: "grid", gridTemplateColumns: "repeat(3, 1fr)", gap: 40 }}>
+            {benefits.map((b, i) => (
+              <BlockReveal key={i} delay={i * 80}>
+                <div style={{ padding: "40px 0", borderTop: "1px solid var(--border)" }}>
+                  <h3 style={{ fontSize: "1.4rem", fontWeight: 700, marginBottom: 16 }}>{b.title}</h3>
+                  <p style={{ color: "var(--text-2)", fontSize: "1rem", lineHeight: 1.7 }}>{b.body}</p>
+                </div>
+              </BlockReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* ══ SERVICES ══ */}
+      <section id="services" style={{ padding: "120px 5%", background: "var(--bg-surface)" }}>
+        <div className="page-wrap" style={{ padding: 0 }}>
+          <div className="section-label">
+            <span className="section-label-num">03</span>
             <span className="section-label-text">What We Do</span>
             <div className="section-label-line" />
           </div>
           <BlockReveal>
             <h2 style={{
               fontFamily: "var(--font)", fontSize: "clamp(2.2rem, 4.5vw, 3.8rem)",
-              fontWeight: 700, lineHeight: 1.08, letterSpacing: "-0.03em",
+              fontWeight: 500, lineHeight: 1.08, letterSpacing: "-0.03em",
               maxWidth: 680, marginBottom: 72, color: "var(--text)",
             }}>
               Everything you need to{" "}
@@ -726,19 +755,19 @@ export default function Home() {
         </div>
       </section>
 
-      {/* ══ TESTIMONIALS SLIDER ══ */}
-      <section id="results" style={{ padding: "120px 0", background: "var(--bg-surface)" }}>
+      {/* ══ PROJECTS (RESULTS) ══ */}
+      <section id="projects" style={{ padding: "120px 0", background: "var(--bg)" }}>
         <div className="page-wrap" style={{ padding: 0, paddingLeft: "5%", paddingRight: "5%" }}>
           <div className="section-label">
-            <span className="section-label-num">03</span>
-            <span className="section-label-text">Client Results</span>
+            <span className="section-label-num">04</span>
+            <span className="section-label-text">Projects</span>
             <div className="section-label-line" />
           </div>
           <BlockReveal>
             <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginBottom: 48, flexWrap: "wrap", gap: 20 }}>
               <h2 style={{
                 fontFamily: "var(--font)", fontSize: "clamp(2.2rem, 4.5vw, 3.8rem)",
-                fontWeight: 700, lineHeight: 1.08, letterSpacing: "-0.03em", color: "var(--text)",
+                fontWeight: 500, lineHeight: 1.08, letterSpacing: "-0.03em", color: "var(--text)",
               }}>
                 Real results from{" "}
                 <span style={{ color: "var(--accent-red)" }}>real</span> businesses
@@ -768,6 +797,42 @@ export default function Home() {
         </div>
       </section>
 
+
+
+      {/* ══ PRICING ══ */}
+      <section id="pricing" style={{ padding: "120px 5%", background: "var(--bg-surface)" }}>
+        <div className="page-wrap" style={{ padding: 0 }}>
+          <div style={{ textAlign: "center", marginBottom: 64 }}>
+            <div className="section-label" style={{ justifyContent: "center" }}>
+              <span className="section-label-num">05</span>
+              <span className="section-label-text">Pricing</span>
+            </div>
+            <h2 style={{ fontSize: "clamp(2.5rem, 5vw, 4rem)", fontWeight: 500, marginBottom: 20 }}>Simple, fair pricing</h2>
+            <p style={{ color: "var(--text-2)", maxWidth: 500, margin: "0 auto" }}>Choose the engine that fits your current growth stage.</p>
+          </div>
+
+          <div className="pricing-grid">
+            {pricingPlans.map((p, i) => (
+              <BlockReveal key={i} delay={i * 100}>
+                <div className={`pricing-card ${p.popular ? "popular" : ""}`}>
+                  {p.popular && <div style={{ position: "absolute", top: 12, right: 12, background: "var(--accent-red)", color: "white", fontSize: "0.65rem", padding: "4px 10px", borderRadius: 100, fontWeight: 700 }}>MOST POPULAR</div>}
+                  <h3 className="pricing-title">{p.title}</h3>
+                  <div className="pricing-price">{p.price} <span style={{ fontSize: "0.9rem", opacity: 0.6 }}>/mo</span></div>
+                  <ul className="pricing-feats">
+                    {p.features.map(f => (
+                      <li key={f} className="pricing-feat">{f}</li>
+                    ))}
+                  </ul>
+                  <CtaButton href="https://cal.com/niteshbandekar/15min" style={{ width: "100%", justifyContent: "center" }}>
+                    Get Started
+                  </CtaButton>
+                </div>
+              </BlockReveal>
+            ))}
+          </div>
+        </div>
+      </section>
+
       {/* ══ FAQ ══ */}
       <section id="faq" style={{ padding: "120px 5%" }}>
         <div className="page-wrap" style={{ padding: 0 }}>
@@ -779,8 +844,8 @@ export default function Home() {
           <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0 80px", alignItems: "start" }} className="faq-inner">
             <BlockReveal>
               <h2 style={{
-                fontFamily: "var(--font)", fontSize: "clamp(2rem, 4vw, 3.4rem)",
-                fontWeight: 700, lineHeight: 1.08, letterSpacing: "-0.03em",
+                fontFamily: "var(--font)", fontSize: "clamp(2.2rem, 4.5vw, 3.4rem)",
+                fontWeight: 500, lineHeight: 1.08, letterSpacing: "-0.03em",
                 color: "var(--text)", position: "sticky", top: 100,
               }}>
                 Questions we{" "}
@@ -860,7 +925,7 @@ export default function Home() {
                 fontSize: "0.67rem", letterSpacing: "0.2em", textTransform: "uppercase",
                 color: "var(--accent)", marginBottom: 20, fontWeight: 600,
               }}>Navigation</h4>
-              {["Process", "Services", "Results", "FAQ"].map((l) => (
+              {["Process", "Benefits", "Projects", "Pricing"].map((l) => (
                 <a key={l} href={`#${l.toLowerCase()}`} className="footer-link">{l}</a>
               ))}
             </div>
