@@ -4,44 +4,49 @@
 
 :root {
   /* ── Backgrounds ──────────────────────────────── */
-  --bg: #fcfefd;
-  /* Chic off-white */
-  --bg-surface: #f8fafb;
-  --bg-surface2: #eff2f6;
-  --bg-dark: #2f3049;
-  /* Deep navy */
-  --bg-dark2: #242539;
+  --bg: #f0f6f6;
+  /* Chic tech-white */
+  --bg-surface: #e8efef;
+  --bg-surface2: #dce7e7;
+  --bg-dark: #061a40;
+  /* New Deep navy */
+  --bg-dark2: #04122d;
 
   /* ── Text ─────────────────────────────────────── */
-  --text: #2f3049;
-  /* Deep navy */
-  --text-2: #4a4d6d;
-  --text-3: #5174a6;
-  /* Muted blue */
-  --text-4: #8a9fc4;
-  --text-inv: #fcfefd;
+  --text: #061a40;
+  /* New Deep navy */
+  --text-2: #2b3a55;
+  --text-3: #4a5d7c;
+  --text-4: #6b7d99;
+  --text-inv: #f0f6f6;
   --text-inv-2: #cbd5e0;
 
   /* ── Accents ───────────────────────────────────── */
-  --accent: #5174a6;
-  /* Muted blue */
-  --accent-red: #d81f21;
-  /* Vibrant red */
-  --accent-dark: #2f3049;
+  --accent: #dced31;
+  /* Electric Pear */
+  --accent-dim: #c5d42c;
+  --accent-dark: #061a40;
+  --accent-red: #dced31;
+  /* Legacy mapping */
+  --accent-blue: #061a40;
+  /* Legacy mapping */
+  --text-accent: #beca16;
 
-  --accent-bg: rgba(81, 116, 166, 0.08);
-  --accent-red-bg: rgba(216, 31, 33, 0.06);
+  --accent-bg: rgba(220, 237, 49, 0.15);
+  --accent-bg2: rgba(220, 237, 49, 0.08);
+  --accent-dark-bg: rgba(6, 26, 64, 0.05);
+  --accent-glow: rgba(220, 237, 49, 0.2);
 
   /* ── Buttons ──────────────────────────────────── */
-  --btn-bg: #2f3049;
-  --btn-text: #fcfefd;
+  --btn-bg: #061a40;
+  --btn-text: #f0f6f6;
+  --btn-accent-bg: #dced31;
+  --btn-accent-text: #061a40;
 
   /* ── Borders ──────────────────────────────────── */
-  --border: #e2e8f0;
-  /* Clean border */
-  --border-md: #cbd5e0;
-  /* Medium border */
-  --border-dark: #3a3b5a;
+  --border: #d1dfdf;
+  --border-md: #b8ccce;
+  --border-dark: #122852;
 
   /* ── Typography ───────────────────────────────── */
   --font: 'Satoshi', system-ui, -apple-system, sans-serif;
@@ -94,28 +99,28 @@ div {
 
 /* ── Heading defaults (dark, clear) ────────────── */
 h1 {
-  font-weight: 800;
+  font-weight: 900;
   color: var(--text);
   line-height: 1.05;
   letter-spacing: -0.03em;
 }
 
 h2 {
-  font-weight: 700;
+  font-weight: 800;
   color: var(--text);
   line-height: 1.1;
   letter-spacing: -0.025em;
 }
 
 h3 {
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text);
   line-height: 1.2;
   letter-spacing: -0.015em;
 }
 
 h4 {
-  font-weight: 600;
+  font-weight: 700;
   color: var(--text-2);
   line-height: 1.3;
 }
@@ -168,11 +173,11 @@ p {
 
   0%,
   100% {
-    box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.4);
+    box-shadow: 0 0 0 0 rgba(220, 237, 49, 0.4);
   }
 
   50% {
-    box-shadow: 0 0 0 8px rgba(34, 197, 94, 0);
+    box-shadow: 0 0 0 8px rgba(220, 237, 49, 0);
   }
 }
 
@@ -378,7 +383,7 @@ p {
   padding: 14px 40px;
   padding-right: 14px;
   background: var(--bg-dark);
-  color: #fff;
+  color: white;
   border-radius: 100px;
   font-size: 0.9rem;
   font-weight: 700;
@@ -392,8 +397,8 @@ p {
 
 .cta-pill:hover {
   transform: translateY(-4px);
-  box-shadow: 0 12px 30px rgba(216, 31, 33, 0.2);
-  color: #fff;
+  box-shadow: 0 12px 30px var(--accent-glow);
+  color: var(--text) !important;
 }
 
 .cta-pill .icon-fill {
@@ -401,14 +406,14 @@ p {
   right: 6px;
   width: 44px;
   height: 44px;
-  background: var(--accent-red);
+  background: var(--accent);
   border-radius: 50%;
   transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
   z-index: -1;
 }
 
 .cta-pill:hover .icon-fill {
-  transform: scale(10);
+  transform: scale(40);
 }
 
 .cta-pill .btn-text {
@@ -417,18 +422,18 @@ p {
   margin-right: 24px;
 }
 
-.cta-pill .phone-svg {
+.cta-pill .btn-icon {
   width: 18px;
   height: 18px;
-  fill: #fff;
+  stroke: var(--text);
   position: relative;
   z-index: 2;
   transition: transform 0.4s ease;
   margin-right: 14px;
 }
 
-.cta-pill:hover .phone-svg {
-  transform: rotate(15deg) scale(1.1);
+.cta-pill:hover .btn-icon {
+  transform: translateX(3px) scale(1.1);
 }
 
 /* ── Hero CTA / Trust Badge ───────────────────── */
@@ -461,19 +466,19 @@ p {
 
 .cta-hero:hover {
   transform: translateY(-4px);
-  box-shadow: 0 15px 35px rgba(216, 31, 33, 0.25);
-  color: #fff;
+  box-shadow: 0 15px 35px var(--accent-glow);
+  color: var(--text);
 }
 
 .cta-hero-arrow {
   width: 48px;
   height: 48px;
-  background: var(--accent-red);
+  background: var(--accent);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: #fff;
+  color: var(--text);
   transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
   z-index: 2;
@@ -487,7 +492,7 @@ p {
   transform: translateY(-50%);
   width: 48px;
   height: 48px;
-  background: var(--accent-red);
+  background: var(--accent);
   border-radius: 50%;
   transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
   z-index: -1;
@@ -751,8 +756,8 @@ button:focus-visible {
   background-color: var(--bg-surface);
   color: var(--text);
   transform: rotateY(180deg);
-  border-color: var(--accent-red);
-  box-shadow: 0 15px 40px rgba(47, 48, 73, 0.08);
+  border-color: var(--accent);
+  box-shadow: 0 15px 40px rgba(6, 26, 64, 0.12);
 }
 
 @media (max-width: 768px) {
@@ -825,7 +830,7 @@ button:focus-visible {
   font-family: var(--font);
   font-size: 0.85rem;
   font-weight: 600;
-  color: #fff;
+  color: white;
   text-decoration: none;
   transition: all 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
@@ -835,7 +840,7 @@ button:focus-visible {
 
 .plan-bar-cta:hover {
   transform: translateX(4px);
-  color: #fff;
+  color: var(--text) !important;
 }
 
 .plan-bar-cta::before {
@@ -846,14 +851,14 @@ button:focus-visible {
   transform: translateY(-50%);
   width: 32px;
   height: 32px;
-  background: var(--accent-red);
+  background: var(--accent);
   border-radius: 50%;
   transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1);
   z-index: -1;
 }
 
 .plan-bar-cta:hover::before {
-  transform: translateY(-50%) scale(15);
+  transform: translateY(-50%) scale(40);
 }
 
 .plan-bar-cta:hover .plan-bar-circle {
@@ -863,12 +868,12 @@ button:focus-visible {
 .plan-bar-circle {
   width: 32px;
   height: 32px;
-  background: var(--accent-red);
+  background: var(--accent);
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  color: white;
+  color: var(--text);
   transition: all 0.3s ease;
   position: relative;
   z-index: 2;
@@ -910,13 +915,13 @@ button:focus-visible {
 }
 
 .pricing-card:hover {
-  border-color: var(--accent-red);
+  border-color: var(--accent);
   transform: translateY(-8px);
-  box-shadow: 0 20px 50px rgba(47, 48, 73, 0.1);
+  box-shadow: 0 20px 50px var(--accent-glow);
 }
 
 .pricing-card.popular {
-  border-color: var(--accent-red);
+  border-color: var(--accent);
   position: relative;
   background: var(--bg-dark);
   color: var(--text-inv);
@@ -936,7 +941,7 @@ button:focus-visible {
 
 .pricing-title {
   font-size: 1.25rem;
-  font-weight: 500;
+  font-weight: 700;
   margin-bottom: 12px;
   color: var(--text);
 }
@@ -966,7 +971,7 @@ button:focus-visible {
 
 .pricing-feat::before {
   content: "✓";
-  color: var(--accent-red);
+  color: var(--text-accent);
   font-weight: 900;
 }
 
@@ -976,38 +981,16 @@ button:focus-visible {
 
 .pricing-card .cta-pill:hover {
   background: var(--accent);
-  color: #fff;
+  color: var(--text);
   transform: scale(1.02);
 }
 
 .pricing-card.popular .cta-pill:hover {
-  background: #fff;
-  color: var(--bg-dark);
+  background: var(--accent);
+  color: var(--text);
 }
 
-.available-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  border: 1px solid var(--border-md);
-  padding: 8px 18px;
-  font-size: 0.72rem;
-  letter-spacing: 0.14em;
-  text-transform: uppercase;
-  color: var(--text-2);
-  margin-bottom: 24px;
-  background: var(--bg-surface);
-  border-radius: 100px;
-  font-weight: 500;
-}
 
-@media (max-width: 768px) {
-  .available-badge {
-    padding: 6px 14px;
-    font-size: 0.65rem;
-    margin-bottom: 20px;
-  }
-}
 
 /* ── Responsive Refinements ───────────────────── */
 .testimonial-card {

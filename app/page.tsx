@@ -1,6 +1,20 @@
 "use client";
 
 import { useEffect, useRef, useState, useCallback } from "react";
+import {
+  Instagram,
+  Video,
+  BarChart3,
+  Zap,
+  Settings,
+  Search,
+  ArrowUpRight,
+  ChevronRight,
+  TrendingUp,
+  Layout,
+  MessageSquare,
+  Facebook
+} from "lucide-react";
 
 /* ─────────────────────────────────────────────
    HOOK: fires once when element enters viewport
@@ -64,9 +78,7 @@ function CtaButton({ href, children, className = "", style = {}, onClick }: { hr
     <a href={href} target="_blank" rel="noreferrer" onClick={onClick} className={`cta-pill ${className}`} style={style}>
       <span className="btn-text">{children}</span>
       <div className="icon-fill" aria-hidden="true" />
-      <svg className="phone-svg" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-        <path d="M6.62 10.79c1.44 2.82 3.76 5.14 6.59 6.59l2.2-2.2c.27-.27.67-.36 1.02-.24 1.12.37 2.33.57 3.57.57.55 0 1 .45 1 1V20c0 .55-.45 1-1 1-9.39 0-17-7.61-17-17 0-.55.45-1 1-1h3.5c.55 0 1 .45 1 1 0 1.25.2 2.45.57 3.57.11.35.03.74-.25 1.02l-2.2 2.2z" />
-      </svg>
+      <ChevronRight className="btn-icon" size={20} strokeWidth={2.5} />
     </a>
   );
 }
@@ -135,7 +147,7 @@ function TestCard({ tag, quote, name, company, initials }: { tag: string; quote:
       <div style={{
         display: "inline-block",
         background: "var(--accent-bg2)",
-        color: "var(--accent-red)", fontSize: "0.7rem", letterSpacing: "0.08em",
+        color: "var(--text)", fontSize: "0.7rem", letterSpacing: "0.08em",
         textTransform: "uppercase", padding: "6px 14px", marginBottom: 20,
         fontFamily: "var(--font)", fontWeight: 800, borderRadius: 100,
       }}>{tag}</div>
@@ -162,26 +174,22 @@ function TestCard({ tag, quote, name, company, initials }: { tag: string; quote:
 /* ─────────────────────────────────────────────
    COMPONENT: Service Card
    ───────────────────────────────────────────── */
-function ServiceCard({ icon, title, body }: { icon: string; title: string; body: string; }) {
+function ServiceCard({ icon: Icon, title, body }: { icon: any; title: string; body: string; }) {
   return (
     <div className="flip-card">
       <div className="flip-card-inner">
         {/* Front of card */}
         <div className="flip-card-front">
           <div style={{
-            width: 70, height: 70, background: "var(--accent-bg2)",
-            color: "var(--accent-red)", display: "flex", alignItems: "center",
+            width: 70, height: 70, background: "var(--accent-bg)",
+            color: "var(--text)", display: "flex", alignItems: "center",
             justifyContent: "center", fontSize: "1.8rem", marginBottom: 32,
-            borderRadius: 16, border: "1px solid rgba(216, 31, 33, 0.15)"
-          }}>{icon}</div>
+            borderRadius: 16, border: "1px solid var(--accent)"
+          }}><Icon size={32} strokeWidth={1.5} /></div>
           <h3 style={{
-            fontFamily: "var(--font)", fontSize: "1.25rem", fontWeight: 700,
+            fontFamily: "var(--font)", fontSize: "1.25rem", fontWeight: 800,
             color: "var(--text)", letterSpacing: "-0.01em", lineHeight: 1.3
           }}>{title}</h3>
-          <div style={{
-            marginTop: 24, fontSize: "0.65rem", fontWeight: 800, color: "var(--accent-red)",
-            textTransform: "uppercase", letterSpacing: "0.15em", opacity: 0.7
-          }}>Hover to flip</div>
         </div>
 
         {/* Back of card */}
@@ -190,9 +198,9 @@ function ServiceCard({ icon, title, body }: { icon: string; title: string; body:
             fontSize: "0.95rem", color: "var(--text-2)", lineHeight: 1.7,
             fontWeight: 450, textAlign: "center"
           }}>{body}</p>
-          <div style={{ marginTop: 32 }}>
-            <CtaButton href="https://cal.com/niteshbandekar/15min" style={{ padding: "10px 24px", fontSize: "0.8rem" }}>
-              Book Call
+          <div style={{ marginTop: 32, width: "100%" }}>
+            <CtaButton href="https://cal.com/niteshbandekar/15min" style={{ width: "100%", justifyContent: "center" }}>
+              Book a Call
             </CtaButton>
           </div>
         </div>
@@ -234,12 +242,12 @@ export default function Home() {
 
 
   const services = [
-    { icon: "◈", title: "Meta Advertising", body: "High-ROI paid campaigns on Facebook and Instagram, built for local service businesses that need a consistent flow of qualified leads." },
-    { icon: "◇", title: "Content Creation", body: "Strategic short-form video content, scripts, and creatives that build authority, trust, and organic reach in your local market." },
-    { icon: "○", title: "Video Editing", body: "Professional video editing optimized for social media performance — hooks, pacing, captions, and graphics that stop the scroll." },
-    { icon: "△", title: "Lead Generation Systems", body: "End-to-end funnels that capture, qualify, and nurture leads automatically — so your calendar stays full without chasing." },
-    { icon: "□", title: "Marketing Automation", body: "Follow-up sequences, CRM workflows, and automated nurturing that convert leads into booked jobs without manual effort." },
-    { icon: "⬡", title: "Performance Analytics", body: "Clear, actionable reporting on every metric that matters — so you always know exactly what your marketing is returning." },
+    { icon: Facebook, title: "Meta Advertising", body: "High-ROI paid campaigns on Facebook and Instagram, built for local service businesses that need a consistent flow of qualified leads." },
+    { icon: Video, title: "Content Creation", body: "Strategic short-form video content, scripts, and creatives that build authority, trust, and organic reach in your local market." },
+    { icon: Zap, title: "Video Editing", body: "Professional video editing optimized for social media performance — hooks, pacing, captions, and graphics that stop the scroll." },
+    { icon: TrendingUp, title: "Lead Generation Systems", body: "End-to-end funnels that capture, qualify, and nurture leads automatically — so your calendar stays full without chasing." },
+    { icon: Settings, title: "Marketing Automation", body: "Follow-up sequences, CRM workflows, and automated nurturing that convert leads into booked jobs without manual effort." },
+    { icon: BarChart3, title: "Performance Analytics", body: "Clear, actionable reporting on every metric that matters — so you always know exactly what your marketing is returning." },
   ];
 
   const processSteps = [
@@ -297,7 +305,7 @@ export default function Home() {
           text-decoration: none; transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
           display: inline-block; border: none; cursor: pointer; border-radius: 100px;
         }
-        .btn-primary:hover { background: var(--accent-dark); transform: translateY(-1px); box-shadow: 0 4px 12px rgba(47, 48, 73, 0.15); }
+        .btn-primary:hover { background: var(--accent); color: var(--text); transform: translateY(-1px); box-shadow: 0 4px 12px var(--accent-glow); }
 
         .btn-outline {
           border: 1.5px solid var(--border-md); color: var(--text-2);
@@ -323,12 +331,12 @@ export default function Home() {
         .hero-title {
           font-family: var(--font);
           font-size: clamp(2.6rem, 6vw, 4.8rem);
-          font-weight: 500; line-height: 1.1; letter-spacing: -0.01em;
+          font-weight: 800; line-height: 1.1; letter-spacing: -0.01em;
           color: var(--text); text-align: center; max-width: 1150px; margin: 0 auto 32px;
         }
         .hero-sup {
           font-size: 0.72rem; letter-spacing: 0.24em; text-transform: uppercase;
-          color: var(--accent); margin-bottom: 12px; font-weight: 500;
+          color: var(--text); margin-bottom: 12px; font-weight: 500;
         }
         .hero-sub {
           font-size: 1.05rem; color: var(--text-2); max-width: 520px;
@@ -347,7 +355,7 @@ export default function Home() {
         .stat-number {
           font-family: var(--font);
           font-size: clamp(2.2rem, 4.5vw, 3.6rem);
-          font-weight: 500; color: var(--text); line-height: 1;
+          font-weight: 700; color: var(--text); line-height: 1;
           margin-bottom: 10px; letter-spacing: -0.03em;
         }
         .stat-label {
@@ -369,16 +377,16 @@ export default function Home() {
           height: 2px; background: var(--accent);
           transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease;
         }
-        .process-card:hover { background: var(--accent-bg); }
+        .process-card:hover { background: var(--accent-bg2); }
         .process-card:hover::before { transform: scaleX(1); }
         .proc-num {
-          font-family: var(--font); font-size: 4.5rem; font-weight: 500;
+          font-family: var(--font); font-size: 4.5rem; font-weight: 700;
           color: var(--border-md); line-height: 1; margin-bottom: 28px;
           letter-spacing: -0.04em; transition: color 0.4s;
         }
-        .process-card:hover .proc-num { color: rgba(81, 116, 166, 0.2); }
+        .process-card:hover .proc-num { color: #061a40; }
         .proc-title {
-          font-family: var(--font); font-size: 1.15rem; font-weight: 500;
+          font-family: var(--font); font-size: 1.15rem; font-weight: 700;
           margin-bottom: 14px; color: var(--text); letter-spacing: -0.01em;
         }
         .proc-body { font-size: 0.92rem; color: var(--text-2); line-height: 1.8; max-width: 340px; }
@@ -408,9 +416,9 @@ export default function Home() {
           box-shadow: none;
         }
         .flip-card:hover {
-          border-color: var(--accent-red);
+          border-color: var(--accent);
           transform: translateY(-4px);
-          box-shadow: 0 10px 30px rgba(47, 48, 73, 0.08);
+          box-shadow: 0 10px 30px var(--accent-glow);
         }
         .flip-card-inner {
           position: relative;
@@ -452,13 +460,13 @@ export default function Home() {
           font-size: 0.85rem; color: var(--text-2); text-decoration: none;
           transition: color 0.25s; display: block; margin-bottom: 10px;
         }
-        .footer-link:hover { color: var(--accent); }
+        .footer-link:hover { color: var(--text-accent); }
 
         /* ── CTA ── */
         .cta-big {
           font-family: var(--font);
           font-size: clamp(2.4rem, 5.5vw, 5rem);
-          font-weight: 500; line-height: 1.04; letter-spacing: -0.03em;
+          font-weight: 800; line-height: 1.04; letter-spacing: -0.03em;
           max-width: 780px; margin: 0 auto 24px; text-align: center;
         }
 
@@ -569,7 +577,7 @@ export default function Home() {
         {/* Accent glow matches new muted blue */}
         <div style={{
           position: "absolute", width: 600, height: 350, borderRadius: "50%",
-          background: "radial-gradient(ellipse, rgba(81, 116, 166, 0.08) 0%, transparent 65%)",
+          background: "radial-gradient(ellipse, var(--accent-bg) 0%, transparent 65%)",
           top: "42%", left: "50%", transform: "translate(-50%, -50%)",
           pointerEvents: "none", filter: "blur(40px)",
         }} />
@@ -579,11 +587,7 @@ export default function Home() {
         }} />
 
         <div style={{ position: "relative", zIndex: 10, display: "flex", flexDirection: "column", alignItems: "center" }}>
-          {/* Available badge */}
-          <div className="available-badge">
-            <span style={{ width: 7, height: 7, background: "#4ade80", borderRadius: "50%", animation: "pulse-green 2s infinite", flexShrink: 0 }} />
-            Available for new clients
-          </div>
+
 
           <p className="hero-sup">Meta Advertising · Content Strategy · Lead Generation</p>
 
@@ -591,11 +595,6 @@ export default function Home() {
             We Build Revenue Engines
             <br />For Service Businesses
           </h1>
-
-          <p className="hero-sub">
-            Strategic content, high-performance video editing, and data-driven
-            advertising systems that turn attention into predictable revenue.
-          </p>
 
           <div className="hero-cta-group">
             <a href="https://cal.com/niteshbandekar/15min" className="cta-hero">
@@ -649,7 +648,7 @@ export default function Home() {
               textTransform: "uppercase", color: "var(--text)", fontWeight: 700,
             }}>
               {item}
-              <span style={{ width: 6, height: 6, background: "var(--accent-red)", borderRadius: "50%", flexShrink: 0, opacity: 0.9 }} />
+              <span style={{ width: 6, height: 6, background: "var(--accent)", borderRadius: "50%", flexShrink: 0, opacity: 0.9 }} />
             </div>
           ))}
         </div>
@@ -681,11 +680,11 @@ export default function Home() {
           <BlockReveal>
             <h2 style={{
               fontFamily: "'Instrument Sans', sans-serif", fontSize: "clamp(2.2rem, 4.5vw, 3.8rem)",
-              fontWeight: 500, lineHeight: 1.08, letterSpacing: "-0.03em",
+              fontWeight: 700, lineHeight: 1.08, letterSpacing: "-0.03em",
               maxWidth: 680, marginBottom: 72, color: "var(--text)",
             }}>
               A system built to{" "}
-              <span style={{ color: "var(--accent-red)" }}>compound</span>{" "}your growth
+              <span style={{ color: "var(--text-accent)" }}>compound</span>{" "}your growth
             </h2>
           </BlockReveal>
           <div className="process-grid">
@@ -734,11 +733,11 @@ export default function Home() {
           <BlockReveal>
             <h2 style={{
               fontFamily: "var(--font)", fontSize: "clamp(2.2rem, 4.5vw, 3.8rem)",
-              fontWeight: 500, lineHeight: 1.08, letterSpacing: "-0.03em",
+              fontWeight: 700, lineHeight: 1.08, letterSpacing: "-0.03em",
               maxWidth: 680, marginBottom: 72, color: "var(--text)",
             }}>
               Everything you need to{" "}
-              <span style={{ color: "var(--accent-red)" }}>dominate</span>{" "}your market
+              <span style={{ color: "var(--text-accent)" }}>dominate</span>{" "}your market
             </h2>
           </BlockReveal>
           <div className="services-grid">
@@ -763,10 +762,10 @@ export default function Home() {
             <div style={{ display: "flex", alignItems: "flex-end", justifyContent: "space-between", marginBottom: 48, flexWrap: "wrap", gap: 20 }}>
               <h2 style={{
                 fontFamily: "var(--font)", fontSize: "clamp(2.2rem, 4.5vw, 3.8rem)",
-                fontWeight: 500, lineHeight: 1.08, letterSpacing: "-0.03em", color: "var(--text)",
+                fontWeight: 700, lineHeight: 1.08, letterSpacing: "-0.03em", color: "var(--text)",
               }}>
                 Real results from{" "}
-                <span style={{ color: "var(--accent-red)" }}>real</span> businesses
+                <span style={{ color: "var(--text-accent)" }}>real</span> businesses
               </h2>
               <p style={{ fontSize: "0.85rem", color: "var(--text-3)", letterSpacing: "0.05em" }}>
                 Trusted by 40+ businesses nationwide
@@ -777,14 +776,12 @@ export default function Home() {
 
         {/* Infinite Marquee Scene */}
         <div className="marquee-container">
-          {/* Row 1: Forward */}
           <div className="marquee-track marquee-fwd">
             {firstRow.concat(firstRow).map((t, i) => (
               <TestCard key={`row1-${i}`} tag={t.tag} quote={t.quote} name={t.name} company={t.company} initials={t.initials} />
             ))}
           </div>
 
-          {/* Row 2: Reverse */}
           <div className="marquee-track marquee-rev">
             {secondRow.concat(secondRow).map((t, i) => (
               <TestCard key={`row2-${i}`} tag={t.tag} quote={t.quote} name={t.name} company={t.company} initials={t.initials} />
@@ -792,8 +789,6 @@ export default function Home() {
           </div>
         </div>
       </section>
-
-
 
       {/* ══ PRICING ══ */}
       <section id="pricing" style={{ padding: "120px 5%", background: "var(--bg-surface)" }}>
@@ -803,7 +798,7 @@ export default function Home() {
               <span className="section-label-num">05</span>
               <span className="section-label-text">Pricing</span>
             </div>
-            <h2 style={{ fontSize: "clamp(2.5rem, 5vw, 4rem)", fontWeight: 500, marginBottom: 20 }}>Simple, fair pricing</h2>
+            <h2 style={{ fontSize: "clamp(2.5rem, 5vw, 4rem)", fontWeight: 700, marginBottom: 20 }}>Simple, fair pricing</h2>
             <p style={{ color: "var(--text-2)", maxWidth: 500, margin: "0 auto" }}>Choose the engine that fits your current growth stage.</p>
           </div>
 
@@ -811,7 +806,7 @@ export default function Home() {
             {pricingPlans.map((p, i) => (
               <BlockReveal key={i} delay={i * 100}>
                 <div className={`pricing-card ${p.popular ? "popular" : ""}`}>
-                  {p.popular && <div style={{ position: "absolute", top: 12, right: 12, background: "var(--accent-red)", color: "white", fontSize: "0.65rem", padding: "4px 10px", borderRadius: 100, fontWeight: 700 }}>MOST POPULAR</div>}
+                  {p.popular && <div style={{ position: "absolute", top: 12, right: 12, background: "var(--accent)", color: "var(--text)", fontSize: "0.65rem", padding: "4px 10px", borderRadius: 100, fontWeight: 700 }}>MOST POPULAR</div>}
                   <h3 className="pricing-title">{p.title}</h3>
                   <div className="pricing-price">{p.price} <span style={{ fontSize: "0.9rem", opacity: 0.6 }}>/mo</span></div>
                   <ul className="pricing-feats">
@@ -841,11 +836,11 @@ export default function Home() {
             <BlockReveal>
               <h2 style={{
                 fontFamily: "var(--font)", fontSize: "clamp(2.2rem, 4.5vw, 3.4rem)",
-                fontWeight: 500, lineHeight: 1.08, letterSpacing: "-0.03em",
+                fontWeight: 700, lineHeight: 1.08, letterSpacing: "-0.03em",
                 color: "var(--text)", position: "sticky", top: 100,
               }}>
                 Questions we{" "}
-                <span style={{ color: "var(--accent-red)" }}>hear</span> often
+                <span style={{ color: "var(--text-accent)" }}>hear</span> often
               </h2>
             </BlockReveal>
             <div>
@@ -870,7 +865,7 @@ export default function Home() {
         }} />
         <div style={{
           position: "absolute", width: 700, height: 300, borderRadius: "50%",
-          background: "radial-gradient(ellipse, rgba(47, 48, 73, 0.05) 0%, transparent 65%)",
+          background: "radial-gradient(ellipse, var(--accent-bg) 0%, transparent 65%)",
           top: "50%", left: "50%", transform: "translate(-50%, -50%)",
           pointerEvents: "none", filter: "blur(60px)",
         }} />
@@ -879,18 +874,17 @@ export default function Home() {
           <BlockReveal>
             <p style={{
               fontSize: "0.7rem", letterSpacing: "0.22em", textTransform: "uppercase",
-              color: "var(--accent)", marginBottom: 24, fontWeight: 600,
+              color: "var(--text-3)", marginBottom: 24, fontWeight: 600,
             }}>Start generating customers</p>
 
             <h2 className="cta-big">
               Ready to{" "}
-              <span style={{ color: "var(--accent-red)" }}>fill your calendar</span>
+              <span style={{ color: "var(--text-accent)" }}>fill your calendar</span>
               <br />with real customers?
             </h2>
 
             <p style={{ color: "var(--text-2)", fontSize: "1rem", maxWidth: 480, margin: "0 auto 52px", lineHeight: 1.8 }}>
-              Book a free 15-minute strategy call. We&apos;ll map out a 90-day
-              customer acquisition roadmap tailored to your business — no fluff, no pressure.
+              Free 15-minute strategy call. Get your customized 90-day acquisition plan.
             </p>
 
             <CtaButton href="https://cal.com/niteshbandekar/30min" style={{ marginTop: 20 }}>
@@ -909,7 +903,7 @@ export default function Home() {
                 fontFamily: "var(--font)", fontSize: "1.15rem", fontWeight: 700,
                 color: "var(--text)", display: "block", marginBottom: 16, letterSpacing: "-0.02em",
               }}>
-                NEXOL <span style={{ color: "var(--accent-red)" }}>MEDIA</span>
+                NEXOL <span style={{ color: "var(--text-accent)" }}>MEDIA</span>
               </span>
               <p style={{ fontSize: "0.85rem", color: "var(--text-2)", lineHeight: 1.8, maxWidth: 260 }}>
                 We build revenue engines for service businesses using content, Meta Ads, and intelligent automation.
@@ -919,7 +913,7 @@ export default function Home() {
             <div>
               <h4 style={{
                 fontSize: "0.67rem", letterSpacing: "0.2em", textTransform: "uppercase",
-                color: "var(--accent)", marginBottom: 20, fontWeight: 600,
+                color: "var(--text-3)", marginBottom: 20, fontWeight: 600,
               }}>Navigation</h4>
               {["Process", "Benefits", "Projects", "Pricing"].map((l) => (
                 <a key={l} href={`#${l.toLowerCase()}`} className="footer-link">{l}</a>
@@ -929,7 +923,7 @@ export default function Home() {
             <div>
               <h4 style={{
                 fontSize: "0.67rem", letterSpacing: "0.2em", textTransform: "uppercase",
-                color: "var(--accent)", marginBottom: 20, fontWeight: 600,
+                color: "var(--text-3)", marginBottom: 20, fontWeight: 600,
               }}>Services</h4>
               {["Meta Advertising", "Content Creation", "Video Editing", "Lead Generation", "Marketing Automation"].map((l) => (
                 <span key={l} className="footer-link" style={{ cursor: "default" }}>{l}</span>
@@ -939,7 +933,7 @@ export default function Home() {
             <div>
               <h4 style={{
                 fontSize: "0.67rem", letterSpacing: "0.2em", textTransform: "uppercase",
-                color: "var(--accent)", marginBottom: 20, fontWeight: 600,
+                color: "var(--text-3)", marginBottom: 20, fontWeight: 600,
               }}>Contact</h4>
               <a href="tel:+917058025578" className="footer-link">+91 705 802 5578</a>
               <a href="mailto:info@nexolmedia.com" className="footer-link">info@nexolmedia.com</a>

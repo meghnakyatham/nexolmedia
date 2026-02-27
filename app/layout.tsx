@@ -3,7 +3,7 @@ import "./globals.css";
 
 export const metadata: Metadata = {
   title: "Nexol Media — Revenue Engines for Service Businesses",
-  description: "We help businesses scale revenue through strategic content, high-performance video editing, and data-driven Meta advertising systems. Trusted by 40+ clients.",
+  description: "Strategic execution. Measurable growth. Sustainable revenue. Trusted by 40+ clients.",
   keywords: "Meta Ads Agency, Content Marketing, Lead Generation, Service Business Marketing, Video Editing",
   openGraph: {
     title: "Nexol Media — Revenue Engines for Service Businesses",
