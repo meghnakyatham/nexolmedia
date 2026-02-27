@@ -57,16 +57,63 @@ function Counter({ target, prefix = "", suffix = "+" }: { target: number; prefix
   return <span ref={ref as React.RefObject<HTMLSpanElement>}>{prefix}{count}{suffix}</span>;
 }
 
-function BlockReveal({ children, delay = 0, className = "" }: { children: React.ReactNode; delay?: number; className?: string; }) {
+function BlockReveal({ children, delay = 0, className = "", style = {} }: { children: React.ReactNode; delay?: number; className?: string; style?: React.CSSProperties }) {
   const { ref, visible } = useReveal();
   return (
     <div
       ref={ref as React.RefObject<HTMLDivElement>}
       className={`block-reveal${visible ? " visible" : ""} ${className}`}
-      style={{ transitionDelay: `${delay}ms` }}
+      style={{ transitionDelay: `${delay}ms`, ...style }}
     >
       {children}
     </div>
+  );
+}
+
+/* ─────────────────────────────────────────────
+   COMPONENT: AnimHeadline
+   ───────────────────────────────────────────── */
+function AnimHeadline({
+  text, accent = [], tag = "h2", style = {}, baseDelay = 0,
+}: {
+  text: string;
+  accent?: string[];
+  tag?: "h1" | "h2";
+  style?: React.CSSProperties;
+  baseDelay?: number;
+}) {
+  const { ref, visible } = useReveal(0.15);
+  const words = text.split(" ");
+
+  const content = words.map((word, i) => {
+    const isAccent = accent.includes(word);
+    return (
+      <span
+        key={i}
+        className={[
+          "word-mask",
+          visible ? "vis" : "",
+          isAccent ? "au" : "",
+          isAccent && visible ? "vis" : "",
+        ].join(" ")}
+        style={{ transitionDelay: `${baseDelay + i * 65}ms`, marginRight: "0.25em" }}
+      >
+        <span className="inner">{word}</span>
+      </span>
+    );
+  });
+
+  if (tag === "h1") {
+    return (
+      <h1 ref={ref as React.RefObject<HTMLHeadingElement>} style={{ lineHeight: 1.1, ...style }}>
+        {content}
+      </h1>
+    );
+  }
+  return (
+    <h2 ref={ref as React.RefObject<HTMLHeadingElement>} style={{ lineHeight: 1.1, ...style }}>
+      {content}
+    </h2>
   );
 }
 
@@ -80,41 +127,6 @@ function CtaButton({ href, children, className = "", style = {}, onClick }: { hr
       <div className="icon-fill" aria-hidden="true" />
       <ChevronRight className="btn-icon" size={20} strokeWidth={2.5} />
     </a>
-  );
-}
-
-/* ─────────────────────────────────────────────
-   COMPONENT: FAQ Item
-   ───────────────────────────────────────────── */
-function FaqItem({ q, a }: { q: string; a: string }) {
-  const [open, setOpen] = useState(false);
-  return (
-    <div style={{ borderBottom: "1px solid var(--border)", transition: "border-color 0.3s" }}>
-      <button
-        onClick={() => setOpen(!open)}
-        aria-expanded={open}
-        style={{
-          width: "100%", background: "none", border: "none",
-          display: "flex", alignItems: "center", justifyContent: "space-between",
-          padding: "26px 0", cursor: "pointer", textAlign: "left",
-          color: "var(--text)", fontFamily: "var(--font)",
-          fontSize: "1rem", fontWeight: 400, gap: 20, lineHeight: 1.5,
-        }}
-      >
-        <span>{q}</span>
-        <span style={{
-          width: 32, height: 32, border: `1px solid ${open ? "var(--accent)" : "var(--border-md)"}`,
-          display: "flex", alignItems: "center", justifyContent: "center",
-          fontSize: "1.3rem", color: open ? "var(--accent)" : "var(--text-3)",
-          flexShrink: 0, transform: open ? "rotate(45deg)" : "rotate(0deg)",
-          transition: "all 0.35s cubic-bezier(0.16,1,0.3,1)", fontWeight: 300, lineHeight: 1,
-          borderRadius: 4,
-        }}>+</span>
-      </button>
-      <div style={{ maxHeight: open ? 300 : 0, overflow: "hidden", transition: "max-height 0.45s cubic-bezier(0.16,1,0.3,1)" }}>
-        <p style={{ paddingBottom: 28, fontSize: "0.93rem", color: "var(--text-2)", lineHeight: 1.85 }}>{a}</p>
-      </div>
-    </div>
   );
 }
 
@@ -215,6 +227,14 @@ function ServiceCard({ icon: Icon, title, body }: { icon: any; title: string; bo
 export default function Home() {
   const [scrolled, setScrolled] = useState(false);
   const [mobileMenuOpen, setMobileMenuOpen] = useState(false);
+  const [showSplash, setShowSplash] = useState(true);
+  const [hoveredFaq, setHoveredFaq] = useState(0);
+
+  useEffect(() => {
+    // Hide splash screen after 2.2 seconds
+    const timer = setTimeout(() => setShowSplash(false), 2200);
+    return () => clearTimeout(timer);
+  }, []);
 
   useEffect(() => {
     const handleScroll = () => setScrolled(window.scrollY > 40);
@@ -251,10 +271,10 @@ export default function Home() {
   ];
 
   const processSteps = [
-    { n: "01", title: "Strategy & Discovery", body: "We define your audience, messaging, creative angles, and growth objectives to build a clear content and ad strategy aligned to your revenue goals." },
-    { n: "02", title: "Production & Execution", body: "We plan, script, edit, and produce high-performing videos and marketing assets designed to attract the right customer and convert them." },
-    { n: "03", title: "Campaign Launch & Distribution", body: "Meta ads and organic content are deployed strategically to generate awareness, inbound leads, and consistent engagement that compounds over time." },
-    { n: "04", title: "Analytics & Scaling", body: "We analyze performance data, improve creatives and funnels, and scale campaigns that drive predictable revenue growth month over month." },
+    { n: "01", title: "Strategy & Discovery", body: "We identify your ideal audience, messaging, and growth goals to create a focused content and ad strategy tied to revenue." },
+    { n: "02", title: "Production & Execution", body: "We craft, edit, and deliver high-impact video and marketing assets that attract and convert your best customers." },
+    { n: "03", title: "Campaign Launch & Distribution", body: "We launch targeted Meta ads and organic content to build awareness, drive leads, and boost ongoing engagement." },
+    { n: "04", title: "Analytics & Scaling", body: "We track performance, refine creatives and funnels, and scale what works to grow predictable revenue month after month." },
   ];
 
   const faqs = [
@@ -282,6 +302,19 @@ export default function Home() {
 
   return (
     <>
+      {/* ══ SPLASH SCREEN ══ */}
+      {showSplash && (
+        <div className="splash-screen">
+          <div className="splash-content">
+            <div style={{ width: 44, height: 44, background: "var(--bg-dark)", borderRadius: 10, display: "flex", alignItems: "center", justifyContent: "center" }}>
+              <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="white" strokeWidth="4"><path d="M5 19L19 5M5 5L19 19" /></svg>
+            </div>
+            <span className="splash-text">
+              NEXOL <span style={{ color: "var(--text-accent)" }}>MEDIA</span>
+            </span>
+          </div>
+        </div>
+      )}
       <style>{`
         /* ── Base font override ── */
         * { font-family: var(--font); }
@@ -366,30 +399,36 @@ export default function Home() {
         /* ── PROCESS ── */
         .process-grid {
           display: grid; grid-template-columns: repeat(2, 1fr);
-          gap: 1px; background: var(--border); border: 1px solid var(--border);
+          gap: 24px;
         }
         .process-card {
-          background: var(--bg); padding: 56px 48px;
-          position: relative; overflow: hidden; transition: background 0.4s;
+          background: var(--bg); padding: 64px 56px; border-radius: 12px;
+          box-shadow: 0 4px 30px rgba(0,0,0,0.02); border: 1px solid var(--border);
+          position: relative; overflow: hidden; transition: background 0.4s, transform 0.4s;
+          display: flex; flex-direction: column;
         }
         .process-card::before {
           content: ''; position: absolute; top: 0; left: 0; right: 0;
-          height: 2px; background: var(--accent);
+          height: 3px; background: var(--accent);
           transform: scaleX(0); transform-origin: left; transition: transform 0.4s ease;
         }
-        .process-card:hover { background: var(--accent-bg2); }
+        .process-card:hover { background: var(--accent-bg2); transform: translateY(-4px); box-shadow: 0 12px 40px rgba(0,0,0,0.05); }
         .process-card:hover::before { transform: scaleX(1); }
         .proc-num {
-          font-family: var(--font); font-size: 4.5rem; font-weight: 700;
-          color: var(--border-md); line-height: 1; margin-bottom: 28px;
-          letter-spacing: -0.04em; transition: color 0.4s;
+          font-family: var(--font); font-size: 0.95rem; font-weight: 500;
+          color: var(--text-3); line-height: 1; margin-bottom: 64px;
+          letter-spacing: 0.05em; transition: color 0.4s;
         }
         .process-card:hover .proc-num { color: #061a40; }
         .proc-title {
-          font-family: var(--font); font-size: 1.15rem; font-weight: 700;
-          margin-bottom: 14px; color: var(--text); letter-spacing: -0.01em;
+          font-family: var(--font); font-size: clamp(1.8rem, 3.5vw, 2.6rem); font-weight: 500;
+          margin-bottom: 24px; color: var(--text); letter-spacing: -0.03em; line-height: 1.05;
+          max-width: 440px;
         }
-        .proc-body { font-size: 0.92rem; color: var(--text-2); line-height: 1.8; max-width: 340px; }
+        .proc-body { 
+          font-family: var(--font); font-size: 1.15rem; color: var(--text-2); 
+          line-height: 1.55; font-weight: 450; max-width: 440px; 
+        }
 
         /* ── TESTIMONIALS SLIDER ── */
         .testimonials-slider-wrap {
@@ -521,8 +560,13 @@ export default function Home() {
           .process-card { padding: 44px 36px !important; }
         }
         @media (max-width: 900px) {
-          .faq-inner { grid-template-columns: 1fr !important; }
-          .faq-inner h2 { position: static !important; margin-bottom: 40px !important; }
+          .faq-interactive-grid {
+            grid-template-columns: 1fr !important;
+            gap: 40px !important;
+          }
+          .faq-answer-sticky {
+            position: static !important;
+          }
         }
       `}</style>
 
@@ -689,8 +733,8 @@ export default function Home() {
           </BlockReveal>
           <div className="process-grid">
             {processSteps.map((c, i) => (
-              <BlockReveal key={i} delay={i * 70}>
-                <div className="process-card">
+              <BlockReveal key={i} delay={i * 70} style={{ height: "100%" }}>
+                <div className="process-card" style={{ height: "100%" }}>
                   <div className="proc-num">{c.n}</div>
                   <h3 className="proc-title">{c.title}</h3>
                   <p className="proc-body">{c.body}</p>
@@ -713,8 +757,18 @@ export default function Home() {
             {benefits.map((b, i) => (
               <BlockReveal key={i} delay={i * 80}>
                 <div style={{ padding: "40px 0", borderTop: "1px solid var(--border)" }}>
-                  <h3 style={{ fontSize: "1.4rem", fontWeight: 700, marginBottom: 16 }}>{b.title}</h3>
-                  <p style={{ color: "var(--text-2)", fontSize: "1rem", lineHeight: 1.7 }}>{b.body}</p>
+                  <h3 style={{
+                    fontFamily: "var(--font)", fontSize: "clamp(1.6rem, 2.5vw, 2.2rem)",
+                    fontWeight: 600, marginBottom: 16, letterSpacing: "-0.02em"
+                  }}>
+                    {b.title}
+                  </h3>
+                  <p style={{
+                    fontFamily: "var(--font)", color: "var(--text-2)",
+                    fontSize: "1.15rem", lineHeight: 1.6, fontWeight: 450, maxWidth: "420px"
+                  }}>
+                    {b.body}
+                  </p>
                 </div>
               </BlockReveal>
             ))}
@@ -825,26 +879,100 @@ export default function Home() {
       </section>
 
       {/* ══ FAQ ══ */}
-      <section id="faq" style={{ padding: "120px 5%" }}>
+      <section id="faq" style={{ padding: "140px 5%" }}>
         <div className="page-wrap" style={{ padding: 0 }}>
-          <div className="section-label">
-            <span className="section-label-num">04</span>
-            <span className="section-label-text">FAQ</span>
+          <div className="section-label" style={{ marginBottom: 60 }}>
+            <span className="section-label-num">06</span>
+            <span className="section-label-text">FAQs</span>
             <div className="section-label-line" />
           </div>
-          <div style={{ display: "grid", gridTemplateColumns: "1fr 1fr", gap: "0 80px", alignItems: "start" }} className="faq-inner">
-            <BlockReveal>
-              <h2 style={{
-                fontFamily: "var(--font)", fontSize: "clamp(2.2rem, 4.5vw, 3.4rem)",
-                fontWeight: 700, lineHeight: 1.08, letterSpacing: "-0.03em",
-                color: "var(--text)", position: "sticky", top: 100,
+
+          <BlockReveal>
+            <AnimHeadline
+              text="FAQs"
+              accent={["FAQs"]}
+              tag="h2"
+              style={{
+                fontSize: "clamp(2.5rem, 5vw, 4rem)",
+                fontWeight: 700, letterSpacing: "-0.03em",
+                color: "var(--text)",
+                marginBottom: "60px"
+              }}
+            />
+          </BlockReveal>
+
+          <div className="faq-interactive-grid" style={{
+            display: "grid",
+            gridTemplateColumns: "1fr 1fr",
+            gap: "80px",
+            alignItems: "start"
+          }}>
+            {/* Left Col: Questions */}
+            <div style={{ display: "flex", flexDirection: "column" }}>
+              {faqs.map((f, i) => (
+                <div
+                  key={i}
+                  onMouseEnter={() => setHoveredFaq(i)}
+                  onClick={() => setHoveredFaq(i)}
+                  style={{
+                    padding: "36px 0",
+                    borderTop: i === 0 ? "1px solid var(--border)" : "none",
+                    borderBottom: "1px solid var(--border)",
+                    cursor: "pointer",
+                    transition: "all 0.3s cubic-bezier(0.16, 1, 0.3, 1)",
+                    opacity: hoveredFaq === i ? 1 : 0.4,
+                    transform: hoveredFaq === i ? "translateX(20px)" : "translateX(0)",
+                  }}
+                >
+                  <h3 style={{
+                    fontFamily: "var(--font)",
+                    fontSize: "clamp(1.4rem, 2.8vw, 2rem)",
+                    fontWeight: hoveredFaq === i ? 700 : 500,
+                    color: "var(--text)",
+                    lineHeight: 1.25,
+                    letterSpacing: "-0.02em",
+                    transition: "color 0.3s ease"
+                  }}>
+                    {f.q}
+                  </h3>
+                </div>
+              ))}
+            </div>
+
+            {/* Right Col: Instant Sticky Answer */}
+            <div className="faq-answer-sticky" style={{ position: "sticky", top: "140px", padding: "40px 0" }}>
+              <div
+                style={{
+                  width: 50, height: 50, background: "var(--accent-bg)",
+                  color: "var(--text)", display: "flex", alignItems: "center",
+                  justifyContent: "center", fontSize: "1.4rem", fontWeight: 800,
+                  borderRadius: "50%", marginBottom: 32,
+                  border: "1px solid var(--accent)",
+                  boxShadow: "0 8px 30px var(--accent-glow)"
+                }}
+              >
+                0{hoveredFaq + 1}
+              </div>
+              <h3 style={{
+                fontSize: "clamp(1.8rem, 3vw, 2.4rem)",
+                fontWeight: 700, color: "var(--text)", marginBottom: "30px", lineHeight: 1.15,
+                letterSpacing: "-0.02em"
               }}>
-                Questions we{" "}
-                <span style={{ color: "var(--text-accent)" }}>hear</span> often
-              </h2>
-            </BlockReveal>
-            <div>
-              {faqs.map((f, i) => <FaqItem key={i} q={f.q} a={f.a} />)}
+                {faqs[hoveredFaq].q}
+              </h3>
+              <p
+                key={hoveredFaq}
+                style={{
+                  fontSize: "clamp(1.4rem, 2vw, 1.8rem)",
+                  color: "var(--text-2)",
+                  lineHeight: 1.6,
+                  fontWeight: 450,
+                  maxWidth: "900px",
+                  animation: "splashFadeInUp 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards"
+                }}
+              >
+                {faqs[hoveredFaq].a}
+              </p>
             </div>
           </div>
         </div>
@@ -887,7 +1015,10 @@ export default function Home() {
               Free 15-minute strategy call. Get your customized 90-day acquisition plan.
             </p>
 
-            <CtaButton href="https://cal.com/niteshbandekar/30min" style={{ marginTop: 20 }}>
+            <CtaButton
+              href="https://cal.com/niteshbandekar/30min"
+              style={{ marginTop: 20, width: "100%", maxWidth: "420px", margin: "20px auto 0", justifyContent: "center" }}
+            >
               Book Your Free Strategy Call
             </CtaButton>
           </BlockReveal>
